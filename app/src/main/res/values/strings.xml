@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TopMovies</string>
+    <string name="name_movie">Movie Title</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="plot">Plot</string>
+    <string name="rating">Rating</string>
+    <string name="release">Release</string>
+
 </resources>
+

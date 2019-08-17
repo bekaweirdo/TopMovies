@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="detail_backdrop_height">500dp</dimen>
+    <dimen name="layout_margin_left">10dp</dimen>
+    <dimen name="layout_margin_top">10dp</dimen>
 </resources>
