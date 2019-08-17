@@ -1,9 +1,11 @@
-package com.example.topmovies
+package com.example.topmovies.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.topmovies.MainActivity
+import com.example.topmovies.R
 
 class Splash : AppCompatActivity() {
     private var mDelayHanlder: Handler? = null
@@ -11,7 +13,7 @@ class Splash : AppCompatActivity() {
 
     internal val mRunnable: Runnable = Runnable {
         if(!isFinishing){
-            val intent = Intent(applicationContext,MainActivity::class.java)
+            val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
