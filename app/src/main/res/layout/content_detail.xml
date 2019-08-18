@@ -41,7 +41,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/plot"
+                    android:id="@+id/overview"
                     android:layout_marginLeft="@dimen/layout_margin_left"
                     android:text="@string/plot"
                     android:textAlignment="center"
