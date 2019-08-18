@@ -1,6 +1,7 @@
 package com.example.topmovies.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.topmovies.DetailActivity
 import com.example.topmovies.R
 import com.example.topmovies.api.CostomItemClickListener
 import com.example.topmovies.models.Movie
@@ -29,7 +31,18 @@ class MovieAdapter(val context: Context,val movieList: ArrayList<Movie>): Recycl
 
         holder.setOnCostomClickListener(object: CostomItemClickListener{
             override fun onCostomItemClickListener(view: View, pos: Int) {
-                Toast.makeText(context,"${holder.title.text}",Toast.LENGTH_LONG).show()
+                var pos = holder.adapterPosition
+                if(pos != holder.adapterPosition){
+                    var clickDataItem = movieList[pos]
+                    var intent = Intent(context,DetailActivity::class.java)
+                    intent.putExtra("title",movieList[pos].title)
+                    intent.putExtra("original_title",movieList[pos].title)
+                    intent.putExtra("overview",movieList[pos].title)
+                    intent.putExtra("rating",movieList[pos].title)
+                    intent.putExtra("release",movieList[pos].title)
+                    intent.putExtra("poster","https://image.tmdb.org/t/p/w500${movieList[pos].posterPath}")
+                    context.startActivity(intent)
+                }
             }
         })
         Glide.with(context)
