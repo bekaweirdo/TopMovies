@@ -2,6 +2,7 @@ package com.example.topmovies.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,15 +33,15 @@ class MovieAdapter(val context: Context,val movieList: ArrayList<Movie>): Recycl
         holder.setOnCostomClickListener(object: CostomItemClickListener{
             override fun onCostomItemClickListener(view: View, pos: Int) {
                 var pos = holder.adapterPosition
-                if(pos != holder.adapterPosition){
+                if(pos != RecyclerView.NO_POSITION){
                     var clickDataItem = movieList[pos]
                     var intent = Intent(context,DetailActivity::class.java)
-                    intent.putExtra("title",movieList[pos].title)
-                    intent.putExtra("original_title",movieList[pos].title)
-                    intent.putExtra("overview",movieList[pos].title)
-                    intent.putExtra("rating",movieList[pos].title)
-                    intent.putExtra("release",movieList[pos].title)
-                    intent.putExtra("poster","https://image.tmdb.org/t/p/w500${movieList[pos].posterPath}")
+                    intent.putExtra("title",clickDataItem.title)
+                    intent.putExtra("original_title",clickDataItem.originalTitle)
+                    intent.putExtra("overview",clickDataItem.overview)
+                    intent.putExtra("rating",clickDataItem.rating)
+                    intent.putExtra("release",clickDataItem.releaseDate)
+                    intent.putExtra("poster","https://image.tmdb.org/t/p/w500${clickDataItem.posterPath}")
                     context.startActivity(intent)
                 }
             }
