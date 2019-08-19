@@ -20,10 +20,8 @@ From Android Studio:
 ## Libraries
 
 ```
-
 * Timber
 * Glide
 * Room
 * Retrofit
-
 ```
