@@ -7,6 +7,7 @@ Clone this repository and import into **Android Studio**
 
 ```
 git clone git@github.com:bekaweirdo/TopMovies.git
+```
 
 ## Generating signed APK
 
