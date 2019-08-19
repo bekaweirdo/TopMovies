@@ -21,9 +21,9 @@ From Android Studio:
 
 ```
 
-- **Timber**
-- **Glide**
-- **Room**
-- **Retrofit**
+* Timber
+* Glide
+* Room
+* Retrofit
 
 ```
