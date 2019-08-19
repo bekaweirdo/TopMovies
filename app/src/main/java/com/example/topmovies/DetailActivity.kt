@@ -64,7 +64,7 @@ class DetailActivity : AppCompatActivity() {
             movieDb.empPosterPath = thumbnail
 
             db.empDAO().saveAll(movieDb)
-            Snackbar.make(it, "Movie added Favourite lists", Snackbar.LENGTH_LONG).setAction("Action", null)
+            Snackbar.make(it, "Movie added to Favourites", Snackbar.LENGTH_LONG).setAction("Action", null)
                 .show()
         }
 
