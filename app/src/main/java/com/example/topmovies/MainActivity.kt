@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.topmovies.adapter.MovieAdapter
 import com.example.topmovies.api.Client
 import com.example.topmovies.database.AppDB
+import com.example.topmovies.database.EmpEntity
 import com.example.topmovies.models.Movie
 import com.example.topmovies.models.MoviesResponse
 import com.example.topmovies.service.ConnectivityReceiver
@@ -47,12 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.RecyclerViewId)
         movieList = ArrayList()
-        recyclerView?.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        recyclerView?.layoutManager = GridLayoutManager(this,2)
         recyclerView?.itemAnimator=DefaultItemAnimator()
     }
     //retrofit for popular movies
     private fun loadJSON(){
-        //var progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        var progressBar = findViewById<ProgressBar>(R.id.progressBar)
         //progressBar.visibility = View.VISIBLE
         try {
             if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
@@ -71,10 +72,11 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
-                        //progressBar.visibility=View.GONE
+                        progressBar.visibility=View.GONE
                         movieList = response.body()!!.results
-                        recyclerView?.adapter = MovieAdapter(applicationContext, movieList)
-                        recyclerView?.adapter?.notifyDataSetChanged()
+                        var movieAdapter = MovieAdapter(applicationContext,movieList)
+                        recyclerView?.adapter = movieAdapter
+                        movieAdapter.notifyDataSetChanged()
                     }
                 }
             })
@@ -101,13 +103,29 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
                     if (response.isSuccessful) {
                         movieList = response.body()!!.results
-                        recyclerView?.adapter = MovieAdapter(applicationContext, movieList)
+                        var movieAdapter = MovieAdapter(applicationContext,movieList)
+                        recyclerView?.adapter = movieAdapter
+                        movieAdapter.notifyDataSetChanged()
                     }
                 }
             })
         }catch (e: Exception){
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
+    }
+    private fun loadFavoriteMovies(){
+        var db = Room.databaseBuilder(applicationContext, AppDB::class.java, "MovieDB").allowMainThreadQueries().build()
+
+        var movieDb: List<EmpEntity> = db.empDAO().getAll()
+        var movie = ArrayList<Movie>()
+        for(i in movieDb){
+            movie.add(Movie(i.empTitle,i.empPosterPath,i.empOverView,i.empOriginalTitle,i.empRating,i.empRelease))
+        }
+        var movieAdapter = MovieAdapter(applicationContext,movie)
+        recyclerView?.adapter = movieAdapter
+        movieAdapter.notifyDataSetChanged()
+
+
     }
     //menu for popular and topRated movies
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -126,6 +144,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.favorite -> {
+                loadFavoriteMovies()
                 true
             }
             else -> super.onOptionsItemSelected(item)
